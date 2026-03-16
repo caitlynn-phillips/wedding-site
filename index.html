@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylja & Selwyn | Ultimate Luxury Wedding</title>
+    <meta name="description"
+        content="The union of Sylja & Selwyn. A premium luxury wedding experience at Thorner Country Estate.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Fixed Background Slideshow -->
+    <div class="fixed-background">
+        <div class="bg-slide" style="background-image: url('image/1000111586.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('image/1000111589.jpg');"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="loader">
+        <div class="monogram premium-font">S & S</div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-label premium-font">The Union of</div>
+                <h1 class="main-title premium-font">Sylja & Selwyn</h1>
+                <h4 class="sub-title">Save the Date</h4>
+                <p class="date-location">November 28, 2026 • Thorner Country Estate</p>
+
+                <div id="countdown" class="countdown-container">
+                    <div class="time-block"><span id="days">00</span><small>Days</small></div>
+                    <div class="time-block"><span id="hours">00</span><small>Hrs</small></div>
+                    <div class="time-block"><span id="minutes">00</span><small>Mins</small></div>
+                    <div class="time-block"><span id="seconds">00</span><small>Secs</small></div>
+                </div>
+
+                <a href="#rsvp" class="cta-button">Join the Celebration</a>
+            </div>
+
+            <div class="scroll-nudge">
+                <div class="scroll-line"></div>
+                <p>Scroll to Explore</p>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section id="story" class="content-section">
+            <div class="container luxury-card" data-aos>
+                <span class="section-label">A Journey of Two</span>
+                <h2 class="section-title premium-font">Our Story</h2>
+                <p class="story-text">
+                    What started as a shared love for art and old movies grew into a beautiful journey.
+                    Twelve cities, hundreds of laughs, and one unforgettable proposal later,
+                    we are ready to start our forever in the heart of Thorner.
+                </p>
+                <div class="flourish-line"></div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="details" class="content-section alternate-bg">
+            <div class="container" data-aos>
+                <span class="section-label">The Celebration</span>
+                <h2 class="section-title premium-font" style="text-align: center;">Details</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="section-label">01</span>
+                        <h3 class="premium-font item-time">Ceremony</h3>
+                        <p>3:00 PM</p>
+                        <p class="date-location" style="margin-top: 20px; font-size: 0.9rem;">Thorner Country Estate</p>
+                    </div>
+                    <div class="detail-item">
+                        <span class="section-label">02</span>
+                        <h3 class="premium-font item-time">Reception</h3>
+                        <p>8:00 PM</p>
+                        <p class="date-location" style="margin-top: 20px; font-size: 0.9rem;">Thorner Country Estate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section id="rsvp" class="content-section">
+            <div class="container luxury-card" data-aos>
+                <span class="section-label">Reservations</span>
+                <h2 class="section-title premium-font">RSVP</h2>
+                <p class="story-text" style="font-size: 1rem; margin-bottom: 60px;">Will you join us for this
+                    black-themed evening?</p>
+
+                <form id="rsvp-form" class="rsvp-form">
+                    <div class="form-field">
+                        <label class="form-label">Honor Guest Name</label>
+                        <input type="text" id="guest-name" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Arrival Status</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="" disabled selected>Will you attend?</option>
+                            <option value="yes">Happily Accept</option>
+                            <option value="no">Regretfully Decline</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Note to Couple</label>
+                        <textarea id="message" name="message" placeholder="Optional message..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Confirm Attendance</button>
+                </form>
+                <div id="rsvp-status" class="status-message hidden"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p class="monogram premium-font" style="opacity: 1; transform: none; font-size: 2rem; margin-bottom: 40px;">
+                S & S</p>
+            <p class="dress-code-title">DRESS CODE</p>
+            <p class="dress-code-spec premium-font">STRICTLY BLACK ONLY</p>
+            <p style="margin-top: 100px; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px;">© 2026 SYLJA
+                & SELWYN</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,618 @@
+:root {
+    --primary-black: #0c0c0c;
+    /* Slightly Lighter Matte Deep Black */
+    --secondary-black: #121212;
+    --pure-white: #ffffff;
+    --champagne: #F9F5F2;
+    /* Luxury Ivory/Champagne */
+    --metallic-gold: linear-gradient(135deg, #d4af37 0%, #f7e695 50%, #d4af37 100%);
+    --gold-solid: #d4af37;
+    --text-main: #F9F5F2;
+    --text-muted: #aaaaaa;
+    --border-luxury: rgba(249, 245, 242, 0.15);
+    --transition-cinematic: 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+    --transition-smooth: 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    --animation-float: luxuryFloat 6s ease-in-out infinite;
+}
+
+@keyframes luxuryFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    /* Hide default for custom cursor */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: transparent;
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+    letter-spacing: 0.5px;
+}
+
+.premium-font {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: var(--text-main);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease;
+    display: none;
+    /* Shown via JS */
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-luxury);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    display: none;
+}
+
+/* Fixed Global Background Slideshow */
+.fixed-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: var(--primary-black);
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: grayscale(100%) contrast(1.1) brightness(1.15);
+    opacity: 0;
+    animation: crossFade 12s infinite ease-in-out;
+}
+
+.bg-slide:nth-child(2) {
+    animation-delay: 6s;
+}
+
+@keyframes crossFade {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.6;
+        /* Adjusted for luxury mood, increased for visibility */
+    }
+
+    45% {
+        opacity: 0.6;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Luxury Grain Overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/black-linen.png');
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Loader Refined */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity var(--transition-cinematic);
+}
+
+.monogram {
+    font-size: 3.5rem;
+    font-weight: 200;
+    letter-spacing: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: monogramFade 3s forwards;
+    padding: 40px;
+    border-top: 1px solid var(--border-luxury);
+    border-bottom: 1px solid var(--border-luxury);
+}
+
+@keyframes monogramFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Section - Cinematic Parallax */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background: transparent;
+}
+
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(12, 12, 12, 0.8) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all var(--transition-cinematic);
+    z-index: 2;
+}
+
+.hero-content.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-label {
+    font-size: 1.2rem;
+    letter-spacing: 12px;
+    margin-bottom: 25px;
+    color: var(--gold-solid);
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.main-title {
+    font-size: clamp(4.5rem, 18vw, 12rem);
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: -3px;
+    line-height: 0.85;
+    color: var(--champagne);
+    text-transform: uppercase;
+}
+
+.sub-title {
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 60px;
+}
+
+.date-location {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    margin-bottom: 80px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+/* Countdown Refined */
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 10vw;
+    margin-bottom: 100px;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-block span {
+    font-size: 4.5rem;
+    font-weight: 200;
+    font-family: 'Playfair Display', serif;
+}
+
+.time-block small {
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    margin-top: 15px;
+}
+
+/* Buttons Luxury */
+.cta-button {
+    padding: 25px 70px;
+    background: transparent;
+    border: 1px solid var(--border-luxury);
+    color: var(--champagne);
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    font-size: 0.75rem;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button:hover {
+    border-color: var(--champagne);
+    background: var(--champagne);
+    color: var(--primary-black);
+    letter-spacing: 12px;
+    /* Smoother, wider expansion */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Scroll Nudge */
+.scroll-nudge {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.6;
+    animation: nudgeRotate 3s ease-in-out infinite;
+    z-index: 5;
+    text-align: center;
+}
+
+.scroll-nudge p {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.6rem;
+    margin-top: 10px;
+    color: var(--text-muted);
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold-solid), transparent);
+    margin: 0 auto;
+}
+
+@keyframes nudgeRotate {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translate(-50%, 0);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, 10px);
+    }
+}
+
+/* Content Sections Luxury Space */
+.content-section {
+    padding: 150px 0;
+    background: transparent;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.luxury-card {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 40px;
+}
+
+.section-label {
+    color: var(--gold-solid);
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-size: 0.7rem;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.section-title {
+    font-size: 5rem;
+    margin-bottom: 60px;
+    font-weight: 400;
+    letter-spacing: -2px;
+}
+
+.story-text {
+    font-size: 1.4rem;
+    line-height: 2;
+    color: var(--text-silver);
+    font-weight: 300;
+}
+
+/* Decorative SVG Lines */
+.flourish-line {
+    width: 1px;
+    height: 150px;
+    background: var(--border-luxury);
+    margin: 60px auto;
+}
+
+/* Details Grid Luxury */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 80px;
+}
+
+.detail-item {
+    padding: 80px 40px;
+    border: 1px solid var(--border-luxury);
+    transition: background 0.5s ease;
+}
+
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.item-time {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Form Luxury Refinement */
+.rsvp-form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form-field {
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.form-label {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    display: block;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-luxury);
+    padding: 20px 0;
+    color: var(--champagne);
+    font-family: inherit;
+    font-size: 1.1rem;
+    transition: border-color var(--transition-smooth);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-bottom-color: var(--champagne);
+    background: rgba(255, 255, 255, 0.03);
+    padding-left: 15px;
+}
+
+/* Footer Luxury */
+.main-footer {
+    padding: 100px 0;
+    text-align: center;
+    background: transparent;
+    border-top: 1px solid var(--border-luxury);
+}
+
+.dress-code-title {
+    letter-spacing: 12px;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    color: var(--text-muted);
+}
+
+.dress-code-spec {
+    font-size: 2rem;
+    letter-spacing: 5px;
+    color: var(--champagne);
+}
+
+/* Reveal Animations Premium */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all var(--transition-cinematic);
+}
+
+[data-aos].revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-title {
+        font-size: clamp(3.5rem, 15vw, 8rem);
+    }
+
+    .countdown-container {
+        gap: 5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 25px;
+    }
+
+    .section-title {
+        font-size: 2.8rem;
+        letter-spacing: -1px;
+    }
+
+    .main-title {
+        font-size: clamp(3rem, 14vw, 6rem);
+        letter-spacing: -2px;
+        margin-bottom: 30px;
+    }
+
+    .hero-label {
+        font-size: 1rem;
+        letter-spacing: 8px;
+    }
+
+    .sub-title {
+        letter-spacing: 10px;
+        margin-bottom: 40px;
+    }
+
+    .date-location {
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
+
+    .countdown-container {
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .time-block span {
+        font-size: 2.5rem;
+    }
+
+    .content-section {
+        padding: 120px 0;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .detail-item {
+        padding: 60px 30px;
+    }
+
+    .section-title {
+        font-size: 3.5rem;
+    }
+
+    .story-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .custom-cursor,
+    .cursor-follower {
+        display: none !important;
+    }
+
+    .rsvp-form {
+        padding: 0;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 1rem;
+    }
+
+    .dress-code-spec {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 3rem;
+    }
+
+    .countdown-container {
+        gap: 20px;
+    }
+
+    .time-block span {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.status-message {
+    padding: 40px;
+    border: 1px solid var(--border-luxury);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.01);
+    margin-top: 60px;
+}
