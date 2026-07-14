@@ -112,12 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvp-form');
     const statusMsg = document.getElementById('rsvp-status');
 
+    // Paste your Google Apps Script Web App URL here (see setup guide) — ends in /exec
+    const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEs0_DF0qmZoys8VEKuWdICp3D2jtfqJ79bToxa1FNQs4vy_u1P01g55eoQoRdYqZrYQ/exec';
+
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const formData = new FormData(rsvpForm);
         const name = formData.get('name');
         const attendance = formData.get('attendance');
+        const message = formData.get('message');
 
         const submitBtn = rsvpForm.querySelector('button');
         const originalText = submitBtn.innerText;
@@ -125,23 +129,35 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.innerText = 'Transmitting Reservation...';
 
-        setTimeout(() => {
-            submitBtn.innerText = attendance === 'yes' ? 'Welcome' : 'Thank You';
-            statusMsg.classList.remove('hidden');
+        fetch(RSVP_ENDPOINT, {
+            method: 'POST',
+            // text/plain avoids a CORS preflight request, which Apps Script doesn't handle
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ name, attendance, message })
+        })
+            .then(() => {
+                submitBtn.innerText = attendance === 'yes' ? 'Welcome' : 'Thank You';
+                statusMsg.classList.remove('hidden');
 
-            if (attendance === 'yes') {
-                statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. Your presence is confirmed. We look forward to celebrating with you!</p>`;
-            } else {
-                statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. We are sorry you cannot make it, but we appreciate your response.</p>`;
-            }
+                if (attendance === 'yes') {
+                    statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. Your presence is confirmed. We look forward to celebrating with you!</p>`;
+                } else {
+                    statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. We are sorry you cannot make it, but we appreciate your response.</p>`;
+                }
 
-            rsvpForm.reset();
+                rsvpForm.reset();
 
-            setTimeout(() => {
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                }, 4000);
+            })
+            .catch(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerText = originalText;
-            }, 4000);
-        }, 2500);
+                statusMsg.classList.remove('hidden');
+                statusMsg.innerHTML = `<p class="premium-font">Something went wrong sending your RSVP. Please try again, or reach out to us directly.</p>`;
+            });
     });
 
     // 6. Parallax Effect for Hero (skipped for users who prefer reduced motion)
