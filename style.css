@@ -148,13 +148,13 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: grayscale(100%) contrast(1.15) brightness(0.35);
+    filter: grayscale(100%) contrast(1.1) brightness(1.05);
     opacity: 0;
     transition: opacity 1.8s ease-in-out;
 }
 
 .bg-slide.active {
-    opacity: 0.25;
+    opacity: 0.55;
 }
 
 /* Luxury Grain Overlay */
