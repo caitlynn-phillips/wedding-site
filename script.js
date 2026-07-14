@@ -13,6 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 6000);
     }
 
+    // 0.5 Toggle "required" on guest names based on guest count
+    // (a party of 1 has no additional guests to name)
+    const guestCountSelect = document.getElementById('guest-count');
+    const guestNamesField = document.getElementById('guest-names');
+
+    if (guestCountSelect && guestNamesField) {
+        const updateGuestNamesRequirement = () => {
+            guestNamesField.required = parseInt(guestCountSelect.value, 10) > 1;
+        };
+        updateGuestNamesRequirement();
+        guestCountSelect.addEventListener('change', updateGuestNamesRequirement);
+    }
+
     // 1. Custom Cursor Logic
     const cursor = document.querySelector('.custom-cursor');
     const follower = document.querySelector('.cursor-follower');
@@ -122,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = formData.get('name');
         const attendance = formData.get('attendance');
         const message = formData.get('message');
+        const guestCount = formData.get('guestCount');
+        const guestNames = formData.get('guestNames');
 
         const submitBtn = rsvpForm.querySelector('button');
         const originalText = submitBtn.innerText;
@@ -133,14 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             // text/plain avoids a CORS preflight request, which Apps Script doesn't handle
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({ name, attendance, message })
+            body: JSON.stringify({ name, attendance, message, guestCount, guestNames })
         })
             .then(() => {
                 submitBtn.innerText = attendance === 'yes' ? 'Welcome' : 'Thank You';
                 statusMsg.classList.remove('hidden');
 
                 if (attendance === 'yes') {
-                    statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. Your presence is confirmed. We look forward to celebrating with you!</p>`;
+                    const partyText = guestCount > 1 ? ` Your party of ${guestCount} is confirmed.` : ' Your presence is confirmed.';
+                    statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}.${partyText} We look forward to celebrating with you!</p>`;
                 } else {
                     statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. We are sorry you cannot make it, but we appreciate your response.</p>`;
                 }

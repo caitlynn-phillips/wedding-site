@@ -503,6 +503,13 @@ body::after {
     display: block;
 }
 
+.form-field:has(textarea:required) .form-label::after,
+.form-field:has(input:required) .form-label::after,
+.form-field:has(select:required) .form-label::after {
+    content: ' *';
+    color: var(--gold-solid);
+}
+
 input,
 select,
 textarea {
