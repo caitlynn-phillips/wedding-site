@@ -1,29 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Background Slideshow Controller
+    // JS-driven instead of pure CSS so exactly one slide is ever visible at a time.
+    const bgSlides = document.querySelectorAll('.bg-slide');
+    if (bgSlides.length > 0) {
+        let currentSlide = 0;
+        bgSlides[0].classList.add('active');
+
+        setInterval(() => {
+            bgSlides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % bgSlides.length;
+            bgSlides[currentSlide].classList.add('active');
+        }, 6000);
+    }
+
     // 1. Custom Cursor Logic
     const cursor = document.querySelector('.custom-cursor');
     const follower = document.querySelector('.cursor-follower');
 
-    if (window.innerWidth > 768) {
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (hasFinePointer && window.innerWidth > 768) {
         cursor.style.display = 'block';
         follower.style.display = 'block';
 
+        let mouseX = 0;
+        let mouseY = 0;
+        let isHovered = false;
+
+        const updateCursorPosition = () => {
+            const cursorScale = isHovered ? ' scale(2)' : '';
+            const followerScale = isHovered ? ' scale(1.5)' : '';
+            cursor.style.transform = `translate3d(${mouseX - 10}px, ${mouseY - 10}px, 0)${cursorScale}`;
+            follower.style.transform = `translate3d(${mouseX - 20}px, ${mouseY - 20}px, 0)${followerScale}`;
+        };
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX - 10}px, ${e.clientY - 10}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 20}px, ${e.clientY - 20}px, 0)`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            updateCursorPosition();
         });
 
         // Hover states
         const interactiveElements = document.querySelectorAll('a, button, select, input, textarea');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.style.transform += ' scale(2)';
-                follower.style.transform += ' scale(1.5)';
+                isHovered = true;
                 follower.style.borderColor = 'var(--champagne)';
+                updateCursorPosition();
             });
             el.addEventListener('mouseleave', () => {
-                cursor.style.transform = cursor.style.transform.replace(' scale(2)', '');
-                follower.style.transform = follower.style.transform.replace(' scale(1.5)', '');
+                isHovered = false;
                 follower.style.borderColor = 'var(--border-luxury)';
+                updateCursorPosition();
             });
         });
     }
@@ -36,10 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             loader.style.display = 'none';
             document.querySelector('.hero-content').classList.add('revealed');
         }, 1500);
-    }, 2500);
+    }, 3200);
 
     // 3. Countdown Timer Logic (Updated for November 28, 2026)
-    const weddingDate = new Date('November 28, 2026 15:00:00').getTime();
+    const weddingDate = new Date('2026-11-28T14:00:00').getTime();
 
     const updateCountdown = () => {
         const now = new Date().getTime();
@@ -89,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(rsvpForm);
         const name = formData.get('name');
+        const attendance = formData.get('attendance');
 
         const submitBtn = rsvpForm.querySelector('button');
         const originalText = submitBtn.innerText;
@@ -97,10 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerText = 'Transmitting Reservation...';
 
         setTimeout(() => {
-            submitBtn.innerText = 'Welcome';
+            submitBtn.innerText = attendance === 'yes' ? 'Welcome' : 'Thank You';
             statusMsg.classList.remove('hidden');
 
-            statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. Your presence is requested and confirmed. More details will follow.</p>`;
+            if (attendance === 'yes') {
+                statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. Your presence is confirmed. We look forward to celebrating with you!</p>`;
+            } else {
+                statusMsg.innerHTML = `<p class="premium-font">Thank you, ${name}. We are sorry you cannot make it, but we appreciate your response.</p>`;
+            }
 
             rsvpForm.reset();
 
@@ -111,13 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     });
 
-    // 6. Parallax Effect for Hero
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const heroContent = document.querySelector('.hero-content');
-        if (scrolled < window.innerHeight) {
-            heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
-            heroContent.style.opacity = 1 - (scrolled / 700);
-        }
-    });
+    // 6. Parallax Effect for Hero (skipped for users who prefer reduced motion)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroContent = document.querySelector('.hero-content');
+            if (scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
+                heroContent.style.opacity = 1 - (scrolled / 700);
+            }
+        });
+    }
 });

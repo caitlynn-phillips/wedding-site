@@ -7,6 +7,19 @@
     <title>Sylja & Selwyn</title>
     <meta name="description"
         content="The union of Sylja & Selwyn. A premium luxury wedding experience at Thorner Country Estate.">
+    <meta name="theme-color" content="#0c0c0c">
+
+    <!-- Open Graph / Social Share Preview -->
+    <meta property="og:title" content="Sylja & Selwyn — The Union of Two">
+    <meta property="og:description"
+        content="Join us November 28, 2026 at Thorner Country Estate as we celebrate our forever.">
+    <meta property="og:image" content="image/og-cover.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230c0c0c'/%3E%3Ctext x='50' y='62' font-size='40' fill='%23d4af37' text-anchor='middle' font-family='serif'%3ES%26S%3C/text%3E%3C/svg%3E">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,17 +32,22 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <!-- Fixed Background Slideshow -->
-    <div class="fixed-background">
+    <div class="fixed-background" aria-hidden="true">
         <div class="bg-slide" style="background-image: url('image/1000111586.jpg');"></div>
         <div class="bg-slide" style="background-image: url('image/1000111589.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('image/IMG-20260704-WA0020_1_.jpg'); background-position: center 20%;"></div>
+        <div class="bg-slide" style="background-image: url('image/IMG-20260708.jpg');"></div>
+        <div class="bg-slide" style="background-image: url('image/IMG-20260711-WA0004.jpg');"></div>
     </div>
 
     <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="custom-cursor" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
 
-    <div class="loader">
+    <div class="loader" aria-hidden="true">
         <div class="monogram premium-font">S & S</div>
     </div>
 
@@ -64,10 +82,10 @@
                 <span class="section-label">A Journey of Two</span>
                 <h2 class="section-title premium-font">Our Story</h2>
                 <p class="story-text">
-                    What started off as a simple friendship. A push from one side and a tug from the other. Consident
-                    persuing from one gentleman and the refusal to admit an attraction from one lady. Years of denying
-                    the unintentional growing love. Has finally led to submitting and admitting the passionate growth of
-                    togetherness that has formed our fate that was undeniable from the start. And now we begin a new
+                    What started off as a simple friendship—a push from one side and a tug from the other. Consistent
+                    pursuing from one gentleman and the refusal to admit an attraction from one lady. Years of denying
+                    the unintentional growing love has finally led to submitting and admitting the passionate growth of
+                    togetherness that has formed our fate, which was undeniable from the start. And now we begin a new
                     chapter. The start of our forever...
                 </p>
                 <div class="flourish-line"></div>
@@ -83,14 +101,15 @@
                     <div class="detail-item">
                         <span class="section-label">01</span>
                         <h3 class="premium-font item-time">Ceremony</h3>
-                        <p>3:00 PM</p>
+                        <p>2:00 PM</p>
                         <p class="date-location" style="margin-top: 20px; font-size: 0.9rem;">Thorner Country Estate</p>
+                        <a href="https://maps.google.com/?q=-29.7570531,30.4604003" target="_blank" rel="noopener noreferrer" class="gps-link">View on Google Maps</a>
                     </div>
                     <div class="detail-item">
                         <span class="section-label">02</span>
-                        <h3 class="premium-font item-time">Reception</h3>
-                        <p>8:00 PM</p>
-                        <p class="date-location" style="margin-top: 20px; font-size: 0.9rem;">Thorner Country Estate</p>
+                        <h3 class="premium-font item-time">Dress Code</h3>
+                        <p style="letter-spacing: 2px;">ALL BLACK</p>
+                        <p class="date-location" style="margin-top: 20px; font-size: 0.9rem; color: var(--gold-solid);">All Black Attire Requested</p>
                     </div>
                 </div>
             </div>
@@ -101,7 +120,7 @@
             <div class="container luxury-card" data-aos>
                 <span class="section-label">Reservations</span>
                 <h2 class="section-title premium-font">RSVP</h2>
-                <p class="story-text" style="font-size: 1rem; margin-bottom: 60px;">Will you join us for this
+                <p class="story-text" style="font-size: 1rem; margin-bottom: 30px;">Will you join us for this
                     black-themed evening?</p>
 
                 <form id="rsvp-form" class="rsvp-form">
@@ -123,7 +142,7 @@
                     </div>
                     <button type="submit" class="cta-button">Confirm Attendance</button>
                 </form>
-                <div id="rsvp-status" class="status-message hidden"></div>
+                <div id="rsvp-status" class="status-message hidden" role="status" aria-live="polite"></div>
             </div>
         </section>
     </main>
@@ -132,9 +151,7 @@
         <div class="container">
             <p class="monogram premium-font" style="opacity: 1; transform: none; font-size: 2rem; margin-bottom: 40px;">
                 S & S</p>
-            <p class="dress-code-title">DRESS CODE</p>
-            <p class="dress-code-spec premium-font">STRICTLY BLACK ONLY</p>
-            <p style="margin-top: 100px; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px;">© 2026 SYLJA
+            <p style="margin-top: 50px; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px;">© 2026 SYLJA
                 & SELWYN</p>
         </div>
     </footer>
