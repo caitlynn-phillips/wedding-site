@@ -13,7 +13,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 6000);
     }
 
-    // 0.5 Toggle "required" on guest names based on guest count
+    // 0.5 Background Music Controller
+    // Browsers block autoplay with sound, so we start muted and let the guest opt in with one tap.
+    const bgMusic = document.getElementById('bg-music');
+    const soundToggle = document.getElementById('sound-toggle');
+
+    if (bgMusic && soundToggle) {
+        bgMusic.muted = true;
+        bgMusic.volume = 0.4;
+        bgMusic.play().catch(() => {
+            // Autoplay may still be blocked entirely on some browsers; that's fine,
+            // playback will simply start on the first tap of the toggle button.
+        });
+
+        soundToggle.addEventListener('click', () => {
+            const isCurrentlyOn = soundToggle.getAttribute('aria-pressed') === 'true';
+
+            if (isCurrentlyOn) {
+                bgMusic.muted = true;
+                soundToggle.setAttribute('aria-pressed', 'false');
+            } else {
+                bgMusic.muted = false;
+                bgMusic.play().catch(() => {});
+                soundToggle.setAttribute('aria-pressed', 'true');
+            }
+        });
+    }
+
+    // 0.6 Toggle "required" on guest names based on guest count
     // (a party of 1 has no additional guests to name)
     const guestCountSelect = document.getElementById('guest-count');
     const guestNamesField = document.getElementById('guest-names');

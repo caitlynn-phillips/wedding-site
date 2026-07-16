@@ -157,6 +157,52 @@ body {
     opacity: 0.55;
 }
 
+/* Sound Toggle */
+.sound-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(12, 12, 12, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-luxury);
+    color: var(--champagne);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    transition: all var(--transition-smooth);
+}
+
+.sound-toggle:hover {
+    border-color: var(--gold-solid);
+    color: var(--gold-solid);
+}
+
+.sound-toggle .icon-playing {
+    display: none;
+}
+
+.sound-toggle[aria-pressed="true"] .icon-muted {
+    display: none;
+}
+
+.sound-toggle[aria-pressed="true"] .icon-playing {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .sound-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+    }
+}
+
 /* Luxury Grain Overlay */
 body::after {
     content: '';
