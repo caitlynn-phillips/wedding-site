@@ -24,11 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const startOnFirstInteraction = () => {
             bgMusic.muted = false;
-            bgMusic.play().catch(() => {});
-            soundToggle.setAttribute('aria-pressed', 'true');
-            ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
-                document.removeEventListener(evt, startOnFirstInteraction)
-            );
+            bgMusic.play()
+                .then(() => {
+                    soundToggle.setAttribute('aria-pressed', 'true');
+                    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+                        document.removeEventListener(evt, startOnFirstInteraction)
+                    );
+                })
+                .catch(() => {
+            
+                    bgMusic.muted = true;
+                });
         };
 
         ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
