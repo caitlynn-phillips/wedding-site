@@ -409,12 +409,12 @@ body::after {
 
     0%,
     100% {
-        opacity: 0.3;
+        opacity: 0.6;
         transform: translate(-50%, 0);
     }
 
     50% {
-        opacity: 0.8;
+        opacity: 1;
         transform: translate(-50%, 10px);
     }
 }

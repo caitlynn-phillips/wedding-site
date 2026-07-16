@@ -14,17 +14,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 0.5 Background Music Controller
-    // Browsers block autoplay with sound, so we start muted and let the guest opt in with one tap.
+    // Browsers block autoplay with sound entirely, so we start muted, then
+    // unmute automatically on the very first interaction anywhere on the page
+    // (tap, click, scroll, or key press) rather than requiring the toggle specifically.
     const bgMusic = document.getElementById('bg-music');
     const soundToggle = document.getElementById('sound-toggle');
 
     if (bgMusic && soundToggle) {
         bgMusic.muted = true;
         bgMusic.volume = 0.4;
-        bgMusic.play().catch(() => {
-            // Autoplay may still be blocked entirely on some browsers; that's fine,
-            // playback will simply start on the first tap of the toggle button.
-        });
+        bgMusic.play().catch(() => {});
+
+        const startOnFirstInteraction = () => {
+            bgMusic.muted = false;
+            bgMusic.play().catch(() => {});
+            soundToggle.setAttribute('aria-pressed', 'true');
+            ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+                document.removeEventListener(evt, startOnFirstInteraction)
+            );
+        };
+
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+            document.addEventListener(evt, startOnFirstInteraction, { once: false, passive: true })
+        );
 
         soundToggle.addEventListener('click', () => {
             const isCurrentlyOn = soundToggle.getAttribute('aria-pressed') === 'true';
