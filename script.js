@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 0.5 Background Music Controller
-    // Browsers block autoplay with sound entirely, so we start muted, then
-    // unmute automatically on the very first interaction anywhere on the page
-    // (tap, click, scroll, or key press) rather than requiring the toggle specifically.
     const bgMusic = document.getElementById('bg-music');
     const soundToggle = document.getElementById('sound-toggle');
 
@@ -164,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvp-form');
     const statusMsg = document.getElementById('rsvp-status');
 
-    // Paste your Google Apps Script Web App URL here (see setup guide) — ends in /exec
     const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEs0_DF0qmZoys8VEKuWdICp3D2jtfqJ79bToxa1FNQs4vy_u1P01g55eoQoRdYqZrYQ/exec';
 
     rsvpForm.addEventListener('submit', (e) => {
