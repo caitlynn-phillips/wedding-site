@@ -356,6 +356,7 @@ body::after {
 
 /* Buttons Luxury */
 .cta-button {
+    display: inline-block;
     padding: 25px 70px;
     background: transparent;
     border: 1px solid var(--border-luxury);
@@ -366,16 +367,30 @@ body::after {
     transition: all var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.cta-button:hover {
-    border-color: var(--champagne);
-    background: var(--champagne);
-    color: var(--primary-black);
-    letter-spacing: 12px;
-    /* Smoother, wider expansion */
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+/* Only apply hover styling on devices with real hover (a mouse) —
+   otherwise tapping on mobile gets "stuck" in this state with no way to leave it. */
+@media (hover: hover) and (pointer: fine) {
+    .cta-button:hover {
+        border-color: var(--champagne);
+        background: var(--champagne);
+        color: var(--primary-black);
+        letter-spacing: 12px;
+        /* Smoother, wider expansion */
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* On touch devices, give a brief, self-resetting tap feedback instead of a stuck hover state */
+@media (hover: none) {
+    .cta-button:active {
+        border-color: var(--champagne);
+        background: var(--champagne);
+        color: var(--primary-black);
+    }
 }
 
 /* Scroll Nudge */
@@ -741,6 +756,12 @@ textarea:focus {
     .dress-code-spec {
         font-size: 1.5rem;
         letter-spacing: 3px;
+    }
+
+    .cta-button {
+        padding: 20px 40px;
+        letter-spacing: 5px;
+        font-size: 0.7rem;
     }
 }
 
