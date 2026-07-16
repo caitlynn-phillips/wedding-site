@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                 })
                 .catch(() => {
-            
+                    
                     bgMusic.muted = true;
                 });
         };
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch(RSVP_ENDPOINT, {
             method: 'POST',
-            // text/plain avoids a CORS preflight request, which Apps Script doesn't handle
+
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({ name, attendance, message, guestCount, guestNames })
         })
