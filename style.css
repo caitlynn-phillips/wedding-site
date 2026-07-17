@@ -33,8 +33,6 @@
     box-sizing: border-box;
 }
 
-/* Only hide the native cursor on devices that actually have a mouse.
-   Keeps things usable for touchscreens, styluses, and keyboard-only users. */
 @media (hover: hover) and (pointer: fine) {
     * {
         cursor: none;
@@ -129,7 +127,6 @@ body {
     display: none;
 }
 
-/* Fixed Global Background Slideshow */
 .fixed-background {
     position: fixed;
     top: 0;
@@ -371,8 +368,6 @@ body::after {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Only apply hover styling on devices with real hover (a mouse) —
-   otherwise tapping on mobile gets "stuck" in this state with no way to leave it. */
 @media (hover: hover) and (pointer: fine) {
     .cta-button:hover {
         border-color: var(--champagne);
@@ -385,7 +380,6 @@ body::after {
     }
 }
 
-/* On touch devices, give a brief, self-resetting tap feedback instead of a stuck hover state */
 @media (hover: none) {
     .cta-button:active {
         border-color: var(--champagne);
